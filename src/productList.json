@@ -1,0 +1,38 @@
+[
+    {
+      "id": "1",
+      "name": "jean",
+      "image": "https://picsum.photos/150/100",
+      "price": 59
+    },
+    {
+      "id": "2",
+      "name": "hoodie",
+      "image": "https://picsum.photos/150/100",
+      "price": 79
+    },
+    {
+      "id": "3",
+      "name": "shirt",
+      "image": "https://picsum.photos/150/100",
+      "price": 25
+    },
+    {
+      "id": "4",
+      "name": "jean pants",
+      "image": "https://picsum.photos/150/100",
+      "price": 50
+    },
+    {
+      "id": "5",
+      "name": "short pants",
+      "image": "https://picsum.photos/150/100",
+      "price": 35
+    },
+    {
+      "id": "6",
+      "name": "Sweater",
+      "image": "https://picsum.photos/150/100",
+      "price": 60
+    }
+  ]
