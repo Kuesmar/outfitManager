@@ -1,23 +1,22 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import OutfitList from './components/OutfitList';
-import ProductList from './components/ProductList';
+import React from "react";
+import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import ProductGrid from "./components/ProductGrid";
+import ProductList from "./components/ProductList";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 function App() {
     const [initialProductList, setInitialProductList] = useState([]);
-    const [outfitProductList, setOutfitProductList] = useState([]);
-    const [outfitRowList, setOutfitRowList] = useState([]);
-    const [skeletonRow, setSkeletonRow] = useState([
-        { id: '1' },
-        { id: '2' },
-        { id: '3' }
-    ]);
+    const [productGrid, setProductGrid] = useState([]);
+    const [isDragging, setIsDragging] = useState(false);
+    const [showDeleteZone, setShowDeleteZone] = useState(false);
+
     useEffect(() => {
         try {
             const fetchData = async () => {
                 const data = await fetch(
-                    'http://demo9820758.mockable.io/products'
+                    "http://demo9820758.mockable.io/products"
                 );
                 return data.json();
             };
@@ -27,19 +26,56 @@ function App() {
         }
     }, []);
 
+    useEffect(() => {
+        let rowEmptyToRemove = null;
+        productGrid.forEach((eachRow, eachRowIdx) => {
+            let isRowEmpty = true;
+
+            for (let index = 0; index < eachRow.length; index++) {
+                if (eachRow[index]) {
+                    isRowEmpty = false;
+                }
+            }
+
+            if (isRowEmpty) {
+                rowEmptyToRemove = eachRowIdx;
+            }
+        });
+        if (rowEmptyToRemove !== null) {
+            setProductGrid(
+                productGrid.filter((_, rowIndex) => {
+                    if (rowEmptyToRemove === rowIndex) {
+                        return false;
+                    }
+                    return true;
+                })
+            );
+        }
+    }, [productGrid]);
+
     return (
-        <div>
-            <h1 className='text-4xl font-bold'>Outfit Manager</h1>
-			<div className='flex'>
-				<ProductList initialProductList={initialProductList} />
-				<OutfitList
-					outfitProductList={outfitProductList}
-					setOutfitProductList={setOutfitProductList}
-					outfitRowList={outfitRowList}
-					setOutfitRowList={setOutfitRowList}
-					skeletonRow={skeletonRow}
-				/>
-			</div>
+        <div className="h-screen bg-gradient-to-tr from-[#FFB457] to-[#FF705B] flex flex-col">
+            <Header />
+            <div className="flex flex-row my-6 flex-grow overflow-hidden">
+                <div className="w-1/2 overflow-auto ml-6 mr-3 h-full">
+                    <ProductList
+                        initialProductList={initialProductList}
+                        setIsDragging={setIsDragging}
+                        setShowDeleteZone={setShowDeleteZone}
+                    />
+                </div>
+                <div className="w-1/2 overflow-auto ml-3 mr-6 h-full">
+                    <ProductGrid
+                        productGrid={productGrid}
+                        isDragging={isDragging}
+                        setIsDragging={setIsDragging}
+                        setProductGrid={setProductGrid}
+                        showDeleteZone={showDeleteZone}
+                        setShowDeleteZone={setShowDeleteZone}
+                    />
+                </div>
+            </div>
+            <Footer />
         </div>
     );
 }
