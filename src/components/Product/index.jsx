@@ -1,59 +1,60 @@
-import React from "react";
-import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import React, { useCallback, useContext } from 'react';
+import { Card, CardBody, CardFooter, Image } from '@nextui-org/react';
+import { productCellContext } from '../../providers/ProductCellProvider';
+import { productListContext } from '../../providers/ProductListProvider';
 
 const Product = ({
     product,
-    setIsDragging,
-    onDragStart,
     columnIndex,
     rowIndex,
+    isInCell
 }) => {
+
+    const { setIsDraggingProduct } = useContext(productListContext);
+    const { setIsDraggingCell } = useContext(productCellContext);
+
     const handleDragStart = (event, product) => {
+        if(isInCell) {
+            event.dataTransfer.setData('type', 'cell');
+        } else {
+            event.dataTransfer.setData('type', 'list');
+        }
         event.stopPropagation();
-        event.dataTransfer.setData("product", JSON.stringify(product));
+        event.dataTransfer.setData('product', JSON.stringify(product));
         event.dataTransfer.setData(
-            "previousPosition",
+            'previousPosition',
             JSON.stringify({
                 columnIndex,
                 rowIndex,
             })
         );
-        //onDragStart?.();
-        //setIsDragging(true);
-    };
-
-    const handleDrop = (event, product) => {
-        console.log(event.dataTransfer.getData('product'));
-    }
-
-    const handleDragOver = (event) => {
-        event.preventDefault();
+        event.dataTransfer.setData('isRow', 'false');
     };
 
     return (
         <div
             draggable
-            onDragOver={handleDragOver}
-            key={product.id}
             onDragStart={(event) => handleDragStart(event, product)}
-            onDrop={(event) => handleDrop(event, product)}
-            className="p-2"
+            onDragOver={(event) => {
+                event.preventDefault();
+            }}
+            onDragEnd={() => isInCell ? setIsDraggingCell(false) : setIsDraggingProduct(false)}
         >
-            <Card shadow="sm" className="h-full w-full" draggable={false}>
+            <Card shadow='sm'>
                 <CardBody className="overflow-visible p-0">
                     <Image
-                        shadow="sm"
-                        radius="lg"
-                        width="100%"
+                        shadow='sm'
+                        radius='lg'
+                        width='100%'
                         alt={product.name}
-                        className="w-full object-cover h-[140px]"
+                        className='w-full object-cover h-[140px]'
                         src={product.image}
-                        draggable={false}
+                        referrerPolicy='no-referrer'
                     />
                 </CardBody>
-                <CardFooter className="text-small justify-betweens">
-                    <b data-testid={product.name}>{product.name}</b>
-                    <p className="text-default-500">{`$${product.price}`}</p>
+                <CardFooter className="text-small justify-between">
+                    <b>{product.name}</b>
+                    <p className="text-default-500">{product.price}</p>
                 </CardFooter>
             </Card>
         </div>

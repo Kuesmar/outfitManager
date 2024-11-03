@@ -4,13 +4,9 @@ import SkeletonList from "../SkeletonList";
 
 const ProductGrid = ({
     productGrid,
-    isDragging,
-    setIsDragging,
-    setProductGrid,
-    showDeleteZone,
-    setShowDeleteZone
+    setProductGrid
 }) => {
-
+    
     const handleDragOver = (event) => {
         event.preventDefault();
     };
@@ -26,9 +22,6 @@ const ProductGrid = ({
                 <SkeletonList
                     productGrid={productGrid}
                     setProductGrid={setProductGrid}
-                    setIsDragging={setIsDragging}
-                    showDeleteZone={showDeleteZone}
-                    setShowDeleteZone={setShowDeleteZone}
                 />
             </div>
             <div
@@ -40,9 +33,6 @@ const ProductGrid = ({
                         rowIndex={index}
                         productGrid={productGrid}
                         setProductGrid={setProductGrid}
-                        isDragging={isDragging}
-                        setIsDragging={setIsDragging}
-                        setShowDeleteZone={setShowDeleteZone}
                         key={index}
                     />
                 ))}

@@ -7,25 +7,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 
 function App() {
-    const [initialProductList, setInitialProductList] = useState([]);
     const [productGrid, setProductGrid] = useState([]);
-    const [isDragging, setIsDragging] = useState(false);
-    const [showDeleteZone, setShowDeleteZone] = useState(false);
-
-    useEffect(() => {
-        try {
-            const fetchData = async () => {
-                const data = await fetch(
-                    "http://demo9820758.mockable.io/products"
-                );
-                return data.json();
-            };
-            fetchData().then((getInfo) => setInitialProductList(getInfo));
-        } catch (error) {
-            console.error(error);
-        }
-    }, []);
-
     useEffect(() => {
         let rowEmptyToRemove = null;
         productGrid.forEach((eachRow, eachRowIdx) => {
@@ -58,20 +40,12 @@ function App() {
             <Header />
             <div className="flex flex-row my-6 flex-grow overflow-hidden">
                 <div className="w-1/2 overflow-auto ml-6 mr-3 h-full">
-                    <ProductList
-                        initialProductList={initialProductList}
-                        setIsDragging={setIsDragging}
-                        setShowDeleteZone={setShowDeleteZone}
-                    />
+                    <ProductList />
                 </div>
                 <div className="w-1/2 overflow-auto ml-3 mr-6 h-full">
                     <ProductGrid
                         productGrid={productGrid}
-                        isDragging={isDragging}
-                        setIsDragging={setIsDragging}
                         setProductGrid={setProductGrid}
-                        showDeleteZone={showDeleteZone}
-                        setShowDeleteZone={setShowDeleteZone}
                     />
                 </div>
             </div>

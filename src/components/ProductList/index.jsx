@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import Product from "../Product";
+import { productListContext } from '../../providers/ProductListProvider';
 
-const ProductList = ({ initialProductList, setIsDragging, setShowDeleteZone }) => {
+const ProductList = () => {
+    const { productList } = useContext(productListContext);
+
     return (
         <div
             className="
@@ -18,9 +21,11 @@ const ProductList = ({ initialProductList, setIsDragging, setShowDeleteZone }) =
             dark:bg-default-100/90
             rounded-large"
         >
-            {initialProductList.map((eachProduct, idx) => (
+            {productList.map((eachProduct, idx) => (
                 <div key={idx}>
-                    <Product product={eachProduct} setIsDragging={setIsDragging} key={eachProduct.id} />
+                    <Product
+                        product={eachProduct}
+                    />
                 </div>
             ))}
         </div>
