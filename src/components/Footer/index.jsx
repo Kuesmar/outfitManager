@@ -12,12 +12,12 @@ const Footer = () => {
     const { t } = useTranslation("translation");
 
     return (
-        <div className="flex p-5 justify-between items-center dark:bg-default-100/90">
+        <div className="flex p-5 justify-between items-center bg-neutral-50/70 dark:bg-default-100/90">
             <div>
-                <p>{t("Footer.label-company")}</p>
+                <b>{t("Footer.label-company")}</b>
             </div>
             <div>
-                <p>{t("Footer.label-copyright")}</p>
+                <b>{t("Footer.label-copyright")}</b>
             </div>
             <div className="flex justify-end gap-5">
                 <SlSocialGithub data-testid='icon-github'/>

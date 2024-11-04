@@ -13,7 +13,7 @@ const ProductGrid = ({
 
     return (
         <div
-            className="flex-1 flex flex-col dark:bg-default-100/90 border-2 border-none rounded-large" 
+            className="flex-1 flex flex-col bg-neutral-50/70 dark:bg-default-100/90 border-2 border-none rounded-large" 
             onDragOver={handleDragOver}
         >
             <div

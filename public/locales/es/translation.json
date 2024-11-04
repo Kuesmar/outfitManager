@@ -7,7 +7,7 @@
         "main-title": "Outfit Manager"
     },
     "SkeletonList": {
-        "drop-boxes": "Drag a product here",
-        "delete-zone": "Drop here to delete"
+        "drop-boxes": "Arrastre un producto aquí",
+        "delete-zone": "Suelte aquí para eliminar"
     }
 }

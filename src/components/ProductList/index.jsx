@@ -18,6 +18,7 @@ const ProductList = () => {
             gap-4
             p-6
             border-2 border-none
+            bg-neutral-50/70
             dark:bg-default-100/90
             rounded-large"
         >

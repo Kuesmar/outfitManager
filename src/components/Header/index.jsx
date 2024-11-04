@@ -6,7 +6,7 @@ const Header = () => {
   const { t } = useTranslation("translation");
 
   return (
-    <div className="flex p-5 justify-between items-center dark:bg-default-100/90">
+    <div className="flex p-5 justify-between items-center bg-neutral-50/70 dark:bg-default-100/90">
         <div>
             <h1 className="text-4xl font-bold">{t("Header.main-title")}</h1>
         </div>

@@ -1,13 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useTranslation } from "react-i18next";
 import { CiImageOn, CiTrash } from "react-icons/ci";
-import { productRowContext } from "../../providers/ProductRowProvider";
-import { productCellContext } from "../../providers/ProductCellProvider";
 
 const SkeletonList = ({ productGrid, setProductGrid }) => {
 
-    const { isDraggingRow } = useContext(productRowContext);
-    const { isDraggingCell } = useContext(productCellContext);
-    const { isDraggingProduct } = useContext(productRowContext);
+    const { t } = useTranslation();
 
     const getProduct = (data) => {
         return data.dataTransfer.getData("product");
@@ -87,7 +84,7 @@ const SkeletonList = ({ productGrid, setProductGrid }) => {
     return (
         <div className="flex flex-col gap-4">
             <div>
-                <p className="mt-2 text-white text-2xl">Arrastre un producto aquí</p>
+                <p className="mt-2 text-2xl">{t('SkeletonList.drop-boxes')}</p>
             </div>
             <div className="flex justify-around gap-4">
                 <div
@@ -95,21 +92,21 @@ const SkeletonList = ({ productGrid, setProductGrid }) => {
                     onDrop={handleDropLeft}
                     onDragOver={(event) => event.preventDefault()}
                 >
-                    <CiImageOn data-testid="left-drop-box" color="white" size={36}/>
+                    <CiImageOn data-testid="left-drop-box" size={36}/>
                 </div>
                 <div
                     className="flex justify-center items-center w-1/3 h-20 border-dashed border-2 border-yellow-500 rounded-large"
                     onDrop={handleDropMid}
                     onDragOver={(event) => event.preventDefault()}
                 >
-                    <CiImageOn data-testid="center-drop-box" color="white" size={36}/>
+                    <CiImageOn data-testid="center-drop-box" size={36}/>
                 </div>
                 <div
                     className="flex justify-center items-center w-1/3 h-20 border-dashed border-2 border-yellow-500 rounded-large"
                     onDrop={handleDropRight}
                     onDragOver={(event) => event.preventDefault()}
                 >
-                    <CiImageOn data-testid="right-drop-box" color="white" size={36}/>
+                    <CiImageOn data-testid="right-drop-box" size={36}/>
                 </div>
             </div>
             <div className="flex justify-center">
@@ -118,8 +115,8 @@ const SkeletonList = ({ productGrid, setProductGrid }) => {
                     onDrop={handleDropDelete}
                     onDragOver={(event) => event.preventDefault()}
                 >
-                    <CiTrash color="white" size={48} />
-                    <p className="mt-2 text-white text-2xl">Suelta aquí para eliminar</p>
+                    <CiTrash size={48} />
+                    <p className="mt-2 text-2xl">{t('SkeletonList.delete-zone')}</p>
                 </div>
             </div>
         </div>
